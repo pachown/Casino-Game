@@ -118,6 +118,7 @@ function custSlotMachine(amt, mod, custObj) {
     if(moneyTotal < -10000){
         alert('TOO MUCH DEBT!!! THUGS BREAK YOUR LEGS AND YOU ARE FIRED');
         window.location.reload();
+        return;
     }
 }
 
