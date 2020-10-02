@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: greenyellow;
+    color: white;
+    background-image: url("Images/Slot Machines.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;  
+    flex-direction: column;
+    font-size: 1.3rem;
+}
+
+.slot-container {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: 200px;
+    width: 500px;
+    overflow-wrap: normal;
+}
+
+.console {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 125px;
+    align-items: center;
+    justify-content: center;
+    padding:10px;
+    border: 3px solid white;
+    border-radius: 25px;
+}
+
+#money-container {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 125px;
+    border: 3px solid white;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.console2 {
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    margin: 15px;
+    border: 3px solid white;
+    border-radius: 25px;
+    text-align: center;
+    font-weight: 800;
+}
+
+#start {
+    color: rgb(1, 161, 55);
+    font-size: 2.5rem;
+    font-weight: 800;
+    border-radius: 100%
+}
+
+#start:hover {
+    background-image: url("Images/Cash.jpg");
+    background-size: cover;
+}
+
+#start-day {
+    color: rgb(1, 161, 55);
+    font-size: 2.5rem;
+    font-weight: 800;
+    border-radius: 100%
+}
+
+#start-day:hover {
+    background-image: url("Images/Cash.jpg");
+    background-size: cover;
+}
+
+#buttons {
+    border: 2px solid black;
+    border-radius: 25px;
+}
+
+.management-container {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: 200px;
+    width: 500px;
+    overflow-wrap: normal;
+}

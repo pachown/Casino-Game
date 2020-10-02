@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine App</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <h1>Tom's Casino</h1>
+
+    <div id="slot-container" class="slot-container">
+        <div id="money-container">
+            <h4>Money</h4>
+            <h4 id="money-total">1000</h4>
+        </div>
+
+        <div class="console">
+            <h4>Your Bet</h4>
+            <p id="bet-total">100</p>
+            <div id="buttons">
+                <button id="bet-amount-incr">+</button>
+                <button id="bet-amount-decr">-</button>
+            </div>
+        </div>
+        <div class="console">
+            <h4>Return %</h4>
+            <p id="bet-return-perc">100</p>
+            <div id="buttons">
+                <button id="bet-return-perc-incr">+</button>
+                <button id="bet-return-perc-decr">-</button>
+            </div>
+        </div>
+        <button id="start" class="console">Bet</button>
+    </div>
+
+    <div id="last-bet-results" class="console2">Results</div>
+
+    <div id="management-container" class="management-container">
+        <div class="console">
+            <h4>Slots</h4>
+            <h4 id="slots-owned">10</h4>
+            <div id="buttons">
+                <button id="slots-incr">+</button>
+            </div>
+        </div>
+
+        <div class="console">
+            <h4>Customers</h4>
+            <h4 id="customers">5</h4>
+        </div>
+
+        <div class="console">
+            <h4>Jackpots</h4>
+            <h4 id="jackpot"></h4>
+            <div id="buttons">
+                <button id="jackpot-incr">+</button>
+                <button id="jackpot-decr">-</button>
+            </div>
+        </div>
+        <button id="start-day" class="console">Start Day</button>
+    </div>
+
+</body>
+
+</html>
