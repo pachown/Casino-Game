@@ -30,23 +30,80 @@ var slotsOwned = 10;
 slotsOwnedEl.innerHTML = slotsOwned;
 var customers = 5
 customersEl.innerHTML = customers;
-var jackpot = 0;
-jackpotEl.innerHTML = jackpot;
+var jackpot = [];
+jackpotEl.innerHTML = jackpot.length;
+
 
 //Customer Object Creation and storage
+var custIdentifier = 0;
 
-customers = [];
-
-const createCustomer = (startingCash, betAmount) {
+function createCustomer(multiplier) {
+    custIdentifier += 1;
     return {
-        cash = startingCash,
-        betAmount = betAmount
+        cash: Math.floor(randomStartingAmount(multiplier)),
+        custBetAmt: Math.floor(randomStartingAmount(multiplier) / 10),
+        id: custIdentifier
     }
 }
 
-function randomBetAmount(multiplier) {
-    return multiplayer * (Math.floor(Math.random() ))
+function randomStartingAmount(multiplier) {
+    return multiplier * (random(1000));
 }
+
+var customersArr = [createCustomer(random(3)+.5), createCustomer(random(3)+.5), createCustomer(random(3)+.5), createCustomer(random(3)+.5), createCustomer(random(3)+.5)];
+
+// Full casino daily functionality
+
+startDay.addEventListener('click', () => {
+    casino(customersArr, betReturnMod);
+});
+
+function casino(custInfo, betReturnMod) {
+    
+    if(custInfo.length > slotsOwned){
+        custInfo.length = slotsOwned;
+    }
+  custInfo.forEach(function(cust) {
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust)
+  });
+}
+
+function random(num) {
+    return Math.floor(Math.random() * num);
+}
+//Customer Slot Machine Functionality
+
+function custSlotMachine(amt, mod, custObj) {
+    //array of 20 outcomes that average to an even return on average
+    outcomesArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, amt, amt, amt, amt, amt, (amt * 2), (amt * 2), (amt * 3), (amt * 3), (amt * 5)];
+
+    //chooses a random outcome from arr
+    outcome = outcomesArr[random(outcomesArr.length)];
+
+    //modifies outcome based on modifier
+    outcomeMod = outcome * (mod / 100);
+
+       //Jackpot Logic
+   if(jackpot > 0){
+    outcomeMod = (10 * amt) * (mod/100);
+    jackpot -= 1;
+    customersArr.push(createCustomer(random(3)));
+    jackpotEl.innerHTML = jackpot;
+}
+
+    moneyTotal += amt;
+    custObj.cash -= amt;
+    moneyTotal -= outcomeMod;
+    custObj.cash += outcomeMod;
+    var profit = amt - outcomeMod;
+    moneyTotalEl.innerHTML = moneyTotal;
+
+    console.log('Customer bet ' + amt + ' and won back ' + outcomeMod + ' and now has $' + custObj.cash + '. Your casino made $' + profit + '.');
+
+    resultsPost.innerText = `You bet ${amt} with ${mod}% modifier and won ${outcomeMod}!`;
+}
+
+
 
 //Individual Slot Machine Functionality
 
@@ -71,24 +128,6 @@ function slotMachine(amt, mod) {
     resultsPost.innerText = `You bet ${amt} with ${mod}% modifier and won ${outcomeMod}!`;
 }
 
-// Full casino daily functionality
-
-startDay.addEventListener('click', () => {
-    casino(customers, betReturnMod);
-});
-
-function casino(customerInfo, betReturnMod) {
-
-}
-
-startDay.addEventListener('click', () => {
-    casino(customers, betReturnMod);
-});
-
-function random(num) {
-    return Math.floor(Math.random() * num);
-}
-
 //increasers & decreasers
 
 betReturnInc.addEventListener('click', () => {
@@ -98,6 +137,9 @@ betReturnInc.addEventListener('click', () => {
 
 betReturnDec.addEventListener('click', () => {
     betReturnMod -= 5;
+    if (betReturnMod < 5){
+        betReturnMod = 5;
+    }
     betReturnModEl.innerHTML = betReturnMod;
 });
 
@@ -108,6 +150,9 @@ betAmountInc.addEventListener('click', () => {
 
 betAmountDec.addEventListener('click', () => {
     betAmount -= 10;
+    if(betAmount < 10){
+        betAmount = 10;
+    }
     betAmountEl.innerHTML = betAmount;
 });
 
@@ -115,6 +160,7 @@ slotsInc.addEventListener('click', () => {
     slotsOwned += 1;
     moneyTotal -= 1000;
     slotsOwnedEl.innerHTML = slotsOwned;
+    moneyTotalEl.innerHTML = moneyTotal;
 });
 
 jackpotInc.addEventListener('click', () => {
@@ -122,7 +168,10 @@ jackpotInc.addEventListener('click', () => {
     jackpotEl.innerHTML = jackpot;
 });
 
-jackpotInc.addEventListener('click', () => {
+jackpotDec.addEventListener('click', () => {
     jackpot -= 1;
+    if (jackpot < 0){
+        jackpot = 0;
+    }
     jackpotEl.innerHTML = jackpot;
 });
