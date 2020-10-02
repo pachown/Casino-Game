@@ -5,6 +5,7 @@ In this game you are the floor manager of a slots casino. You can expand your fl
 Don't get in too much debt though, your knee caps will likely be shattered if you get in too deep with the loan sharks.
 
 TODOS 
+- remove the ability to cheese by betting on yourself
 - Add Background Casino Sounds/Music
 - Add sound effect to both 'start' functions
 - Add consequences for being in debt (interest on debt and a loss condition)
