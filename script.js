@@ -12,6 +12,8 @@ var betAmountInc = document.getElementById('bet-amount-incr');
 var betAmountDec = document.getElementById('bet-amount-decr');
 var moneyTotalEl = document.getElementById('money-total');
 var resultsPost = document.getElementById('last-bet-results');
+var debtEl = document.getElementById('debt');
+var paymentEl = document.getElementById('payment');
 
 var startDay = document.getElementById('start-day');
 var slotsOwnedEl = document.getElementById('slots-owned');
@@ -20,6 +22,9 @@ var customersEl = document.getElementById('customers');
 var jackpotEl = document.getElementById('jackpot');
 var jackpotInc = document.getElementById('jackpot-incr');
 var jackpotDec = document.getElementById('jackpot-decr');
+
+var debt = 10000;
+debtEl.innerHTML = debt;
 var betAmount = 100;
 betAmountEl.innerHTML = betAmount;
 var moneyTotal = 2000;
@@ -30,8 +35,8 @@ var slotsOwned = 10;
 slotsOwnedEl.innerHTML = slotsOwned;
 var customers = 5
 customersEl.innerHTML = customers;
-var jackpot = [];
-jackpotEl.innerHTML = jackpot.length;
+var jackpot = 0;
+jackpotEl.innerHTML = jackpot;
 
 
 //Customer Object Creation and storage
@@ -41,7 +46,7 @@ function createCustomer(multiplier) {
     custIdentifier += 1;
     return {
         cash: Math.floor(randomStartingAmount(multiplier)),
-        custBetAmt: Math.floor(randomStartingAmount(multiplier) / 10),
+        custBetAmt: Math.floor(randomStartingAmount(multiplier) / 10 + 5),
         id: custIdentifier
     }
 }
@@ -64,7 +69,12 @@ function casino(custInfo, betReturnMod) {
         custInfo.length = slotsOwned;
     }
   custInfo.forEach(function(cust) {
-    custSlotMachine(cust.custBetAmt, betReturnMod, cust)
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust);
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust);
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust);
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust);
+    custSlotMachine(cust.custBetAmt, betReturnMod, cust);
+    debtCalculator();
   });
 }
 
@@ -83,12 +93,16 @@ function custSlotMachine(amt, mod, custObj) {
     //modifies outcome based on modifier
     outcomeMod = outcome * (mod / 100);
 
+    outcomeMod = Math.floor(outcomeMod);
+
        //Jackpot Logic
    if(jackpot > 0){
     outcomeMod = (10 * amt) * (mod/100);
     jackpot -= 1;
-    customersArr.push(createCustomer(random(3)));
     jackpotEl.innerHTML = jackpot;
+    customersArr.push(createCustomer(random(3)));
+    customers += 1;
+    customersEl.innerHTML = customers;
 }
 
     moneyTotal += amt;
@@ -101,6 +115,10 @@ function custSlotMachine(amt, mod, custObj) {
     console.log('Customer bet ' + amt + ' and won back ' + outcomeMod + ' and now has $' + custObj.cash + '. Your casino made $' + profit + '.');
 
     resultsPost.innerText = `You bet ${amt} with ${mod}% modifier and won ${outcomeMod}!`;
+    if(moneyTotal < -10000){
+        alert('TOO MUCH DEBT!!! THUGS BREAK YOUR LEGS AND YOU ARE FIRED');
+        window.location.reload();
+    }
 }
 
 
@@ -121,11 +139,15 @@ function slotMachine(amt, mod) {
     //modifies outcome based on modifier
     outcomeMod = outcome * (mod / 100);
 
-    moneyTotal -= amt;
-    moneyTotal += outcomeMod;
-    moneyTotalEl.innerHTML = moneyTotal;
-
     resultsPost.innerText = `You bet ${amt} with ${mod}% modifier and won ${outcomeMod}!`;
+}
+
+//Debt Calculation and Loss condition
+
+debtCalculator = function() {
+    debt = debt * 1.03;
+    debtEl.innerHTML = Math.floor(debt);
+
 }
 
 //increasers & decreasers
@@ -175,3 +197,13 @@ jackpotDec.addEventListener('click', () => {
     }
     jackpotEl.innerHTML = jackpot;
 });
+
+paymentEl.addEventListener('click', () => {
+    if(moneyTotal < 1000) {
+        return;
+    }
+    debt -= 1000;
+    debtEl.innerHTML = debt;
+    moneyTotal -= 1000;
+    moneyTotalEl.innerHTML = moneyTotal;
+})

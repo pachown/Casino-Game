@@ -51,6 +51,15 @@ body {
     justify-content: center;
 }
 
+.mid-div {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: 200px;
+    width: 500px;
+    overflow-wrap: normal;
+}
+
 .console2 {
     display: flex;
     flex-direction: row;
