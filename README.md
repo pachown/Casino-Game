@@ -4,6 +4,8 @@ In this game you are the floor manager of a slots casino. You can expand your fl
 
 Don't get in too much debt though, your knee caps will likely be shattered if you get in too deep with the loan sharks.
 
+<img src="https://github.com/pachown/Casino-Game/blob/master/images/AppImage.jpeg>
+
 TODOS 
 1 remove the ability to cheese by betting on yourself ***** DONE
 2 Add Background Casino Sounds/Music
